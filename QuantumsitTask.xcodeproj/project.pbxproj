@@ -13,9 +13,11 @@
 		762AD16B256E791D009B62DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 762AD169256E791D009B62DA /* Main.storyboard */; };
 		762AD16D256E7920009B62DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 762AD16C256E7920009B62DA /* Assets.xcassets */; };
 		762AD170256E7920009B62DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 762AD16E256E7920009B62DA /* LaunchScreen.storyboard */; };
+		8BDB72005648EACEB5D5D695 /* Pods_QuantumsitTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CE4FF3B5DD472F9BF56BD0 /* Pods_QuantumsitTask.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2D384655929A584729AAF5 /* Pods-QuantumsitTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuantumsitTask.release.xcconfig"; path = "Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask.release.xcconfig"; sourceTree = "<group>"; };
 		762AD160256E791D009B62DA /* QuantumsitTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuantumsitTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		762AD163256E791D009B62DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		762AD165256E791D009B62DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		762AD16C256E7920009B62DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		762AD16F256E7920009B62DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		762AD171256E7920009B62DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79CE4FF3B5DD472F9BF56BD0 /* Pods_QuantumsitTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuantumsitTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F39FF6B3A1E99C68FE7FE0C4 /* Pods-QuantumsitTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuantumsitTask.debug.xcconfig"; path = "Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BDB72005648EACEB5D5D695 /* Pods_QuantumsitTask.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54875ED5AD820D735F3A8D03 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79CE4FF3B5DD472F9BF56BD0 /* Pods_QuantumsitTask.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		74DF417E9C9D3DBDB113F0B3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F39FF6B3A1E99C68FE7FE0C4 /* Pods-QuantumsitTask.debug.xcconfig */,
+				3E2D384655929A584729AAF5 /* Pods-QuantumsitTask.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		762AD157256E791D009B62DA = {
 			isa = PBXGroup;
 			children = (
 				762AD162256E791D009B62DA /* QuantumsitTask */,
 				762AD161256E791D009B62DA /* Products */,
+				74DF417E9C9D3DBDB113F0B3 /* Pods */,
+				54875ED5AD820D735F3A8D03 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 762AD174256E7920009B62DA /* Build configuration list for PBXNativeTarget "QuantumsitTask" */;
 			buildPhases = (
+				A41E213FD010A7E1863226AC /* [CP] Check Pods Manifest.lock */,
 				762AD15C256E791D009B62DA /* Sources */,
 				762AD15D256E791D009B62DA /* Frameworks */,
 				762AD15E256E791D009B62DA /* Resources */,
+				4B37C66FD8EB89B89AE286F9 /* [CP] Embed Pods Frameworks */,
+				CDAA17E81871A510A0D8532E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +159,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4B37C66FD8EB89B89AE286F9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A41E213FD010A7E1863226AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QuantumsitTask-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDAA17E81871A510A0D8532E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		762AD15C256E791D009B62DA /* Sources */ = {
@@ -283,6 +370,7 @@
 		};
 		762AD175256E7920009B62DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F39FF6B3A1E99C68FE7FE0C4 /* Pods-QuantumsitTask.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -302,6 +390,7 @@
 		};
 		762AD176256E7920009B62DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E2D384655929A584729AAF5 /* Pods-QuantumsitTask.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
