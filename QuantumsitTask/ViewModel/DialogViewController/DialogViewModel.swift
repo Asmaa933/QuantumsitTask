@@ -27,10 +27,13 @@ class DialogViewModel: BaseViewModel {
                 if resultData?.status == true {
                     self.aboutUs = resultData?.innerData?[0]
                     self.state = .populated
+                }else {
+                    self.alertMessage = resultData?.message
+                    self.state = .error
                 }
                 
             case .failure(let error):
-                self.alertMessage = error.userInfo[NSLocalizedDescriptionKey] as? String ?? ""
+                self.alertMessage = error.userInfo[NSLocalizedDescriptionKey] as? String
                 self.state = .error
 
             }
