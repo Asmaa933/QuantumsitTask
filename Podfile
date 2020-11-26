@@ -9,7 +9,7 @@ target 'QuantumsitTask' do
   pod 'Alamofire'
   pod 'GoogleMaps', '4.0.0'
   pod 'GooglePlaces', '4.0.0'
-  pod 'ObjectMapper'
+  pod "CDAlertView"
 
 
 end
