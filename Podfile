@@ -10,7 +10,5 @@ target 'QuantumsitTask' do
   pod 'GoogleMaps', '4.0.0'
   pod "CDAlertView"
   pod 'RxSwift'
-  pod 'RxCocoa'
-
 
 end

@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import RxSwift
 
 
 class DialogViewController: BaseViewController {
@@ -16,11 +17,6 @@ class DialogViewController: BaseViewController {
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var mainView: UIView!
     
-    var token = ""
-    private lazy var viewModel: DialogViewModel = {
-        return DialogViewModel()
-    }()
-        
     override func viewDidLoad() {
         super.viewDidLoad()
         initViewModel()
@@ -30,33 +26,27 @@ class DialogViewController: BaseViewController {
     @IBAction func closeButtonAction(_ sender: UIButton) {
         self.dismissView()
     }
+    
+    override func initViewModel() {
+        super.initViewModel()
+        viewModel.contentSubject.observeOn(MainScheduler.instance)
+            .bind {[weak self] (content) in
+                guard let self  = self else {return}
+                self.mainView.isHidden = false
+                self.loadWebView(content: content)
+            }.disposed(by: disposeBag)
+        viewModel.getAboutUs()
+    }
 }
 
 fileprivate extension DialogViewController {
     
     func setupView() {
-       bgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissView)))
-
+        bgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissView)))
         mainView.layer.cornerRadius = 10
         mainView.isHidden = true
         webView.navigationDelegate = self
     }
-    
-    func initViewModel() {
-        
-        initViewModel(viewModel: viewModel)
-        
-        viewModel.updateUIClosure = { [weak self] () in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                self.loadWebView(content: self.viewModel.getContent())
-                self.mainView.isHidden = false
-            }
-        }
-        
-        viewModel.getAboutUs(token: token)
-    }
-
     
     func loadWebView(content: String) {
         webView.loadHTMLString(content, baseURL: nil)

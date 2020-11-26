@@ -6,6 +6,7 @@ PODS:
   - GoogleMaps/Base (4.0.0)
   - GoogleMaps/Maps (4.0.0):
     - GoogleMaps/Base
+  - ObjectMapper (4.2.0)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - Alamofire
   - CDAlertView
   - GoogleMaps (= 4.0.0)
+  - ObjectMapper
   - RxCocoa
   - RxSwift
 
@@ -25,6 +27,7 @@ SPEC REPOS:
     - Alamofire
     - CDAlertView
     - GoogleMaps
+    - ObjectMapper
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -33,10 +36,11 @@ SPEC CHECKSUMS:
   Alamofire: 2c792affbdc2f18016e08fdbcacd60aebe1ba593
   CDAlertView: ee6a87c90c4283c8d316d55633db1a6981f1cc51
   GoogleMaps: b7f7fc569a9b354a3af0d9729dbec40957b7d41e
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: eac9d901f8a2c88444b1513d1c618d73a5a31980
+PODFILE CHECKSUM: e59652ea02ab18c91f6461cc898e5a5e880ba419
 
 COCOAPODS: 1.9.3

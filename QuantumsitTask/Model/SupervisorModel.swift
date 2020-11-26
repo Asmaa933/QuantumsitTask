@@ -9,44 +9,41 @@ import Foundation
 
 //(user->bus->route->routePath) and (user->bus->route->stop_points)
 struct Login: Codable {
-    let token: String?
-    let user: UserModel?
+    var token: String = ""
+    var routePath: [Location] = [Location]()
+    var stopPoints: [Location] = [Location]()
     
-}
-
-// MARK: - UserModel
-struct UserModel: Codable {
-    let hasBus: Bool?
-    let bus: BusModel?
-
-    enum CodingKeys: String, CodingKey {
-        case hasBus = "HasBus"
+    enum LoginKeys: String, CodingKey {
+        case token
+        case user
+    }
+    
+    enum UserKeys: String, CodingKey {
         case bus
     }
-}
-
-struct BusModel: Codable {
-    
-    let route: Route?
-
-    enum CodingKeys: String, CodingKey {
+    enum BusKeys: String, CodingKey {
         case route
     }
-}
-
-// MARK: - Route
-struct Route: Codable {
-    let routePath: [Location]?
-    let stopPoints: [Location]?
-
-    enum CodingKeys: String, CodingKey {
+    enum RouteKeys: String, CodingKey {
         case routePath
         case stopPoints = "stop_points"
+    }
+    
+    init(from decoder: Decoder) throws {
+        guard let mainContainer = try? decoder.container(keyedBy: LoginKeys.self) else {return}
+        self.token = try mainContainer.decode(String.self, forKey: .token)
+        guard let userContainer = try? mainContainer.nestedContainer(keyedBy: UserKeys.self, forKey: .user) else {return}
+        guard let busContainer = try? userContainer.nestedContainer(keyedBy: BusKeys.self, forKey: .bus) else {return}
+        guard let routeContainer = try? busContainer.nestedContainer(keyedBy: RouteKeys.self, forKey: .route) else {return}
+        
+        self.routePath = try routeContainer.decode([Location].self, forKey: .routePath)
+        self.stopPoints = try routeContainer.decode([Location].self, forKey: .stopPoints)
+        
     }
 }
 
 struct Location: Codable {
-    let lat, lng: Double?
+    let lat, lng: Double
 }
 
 

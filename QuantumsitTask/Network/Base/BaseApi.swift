@@ -7,43 +7,52 @@
 
 import Foundation
 import Alamofire
+import RxSwift
 
 class BaseAPI<T: TargetType>{
 
-    func fetchData<M: Decodable>(target: T, responseClass: M.Type,completion: @escaping (_ result:Result<M?,NSError>) -> Void) {
+    func fetchData<M: Codable>(target: T, responseClass: M.Type) -> Observable<M> {
         let url = target.baseURL + target.path
         let method = Alamofire.HTTPMethod(rawValue: target.method.rawValue)
         let headers = Alamofire.HTTPHeaders(target.headers ?? [:])
         let parameters = buildParameters(task: target.task)
-        AF.request(url, method: method, parameters: parameters.0, encoding: parameters.1, headers: headers).responseJSON { (response) in
-            switch response.result{
+        
+        return Observable.create { (observer) -> Disposable in
+          let request =  AF.request(url, method: method, parameters: parameters.0, encoding: parameters.1, headers: headers).responseJSON { (response) in
+                switch response.result{
+                
+                case .success(_):
 
-            case .success(_):
-                guard let jsonResponse = response.data else {
+                    guard let jsonResponse = response.data else {
+                        let error = NSError(domain: url, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessages.generalError])
+                        observer.onError(error)
+                        return
+                        
+                    }
+                    guard let responseObj = try? JSONDecoder().decode(M.self, from: jsonResponse) else {
+                        let error = NSError(domain: url, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessages.generalError])
+                        observer.onError(error)
+
+                        return
+                    }
+                    observer.onNext(responseObj)
+                    observer.onCompleted()
+                    
+                case .failure(let error):
+                    print(error.localizedDescription.description)
                     let error = NSError(domain: url, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessages.generalError])
-                    completion(.failure(error))
-                    return
+                    observer.onError(error)
                 }
-                
-                guard let responseObj = try? JSONDecoder().decode(M.self, from: jsonResponse) else {
-                    let error = NSError(domain: url, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessages.generalError])
-                    completion(.failure(error))
-                    return
-                }
-                
-                completion(.success(responseObj))
-                
-            case .failure(let error):
-                print(error.localizedDescription.description)
-                let error = NSError(domain: url, code: 0, userInfo: [NSLocalizedDescriptionKey: ErrorMessages.generalError])
-                completion(.failure(error as NSError))
+            }
+            
+            return Disposables.create {
+                request.cancel()
             }
         }
+        
+      
     }
     
-    private func parseJSON() {
-        
-    }
     private func buildParameters(task: Task) -> ([String:Any], ParameterEncoding) {
         switch task {
         case .requestPlain:

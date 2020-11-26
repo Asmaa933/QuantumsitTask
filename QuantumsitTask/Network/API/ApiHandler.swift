@@ -6,25 +6,21 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ApiHandlerProtocol {
-    func getAboutUs(token: String, completion: @escaping (Result<BaseResponse<[AboutUsModel]>?, NSError>) -> Void)
-    func loginSupervisor(loginData: [String:String], completion: @escaping (Result<BaseResponse<Login>?, NSError>) -> Void)
-    
+    func getAboutUs(token: String) -> Observable<BaseResponse<[AboutUsModel]>>
+    func loginSupervisor(loginData: [String:String]) -> Observable<BaseResponse<Login>>
 }
 
 class ApiHandler: BaseAPI<ApiNetworking>, ApiHandlerProtocol {
-   
-    func getAboutUs(token: String, completion: @escaping (Result<BaseResponse<[AboutUsModel]>?, NSError>) -> Void) {
-        self.fetchData(target: .aboutUs(token: token), responseClass: BaseResponse<[AboutUsModel]>.self) { (response) in
-            completion(response)
-        }
+    
+    func getAboutUs(token: String) -> Observable<BaseResponse<[AboutUsModel]>> {
+        return self.fetchData(target: .aboutUs(token: token), responseClass: BaseResponse<[AboutUsModel]>.self)
     }
     
-    func loginSupervisor(loginData: [String:String], completion: @escaping (Result<BaseResponse<Login>?, NSError>) -> Void) {
-        self.fetchData(target: .loginSupervisor(loginData: loginData), responseClass: BaseResponse<Login>.self) { (response) in
-            completion(response)
-        }
+    func loginSupervisor(loginData: [String:String]) -> Observable<BaseResponse<Login>> {
+        return self.fetchData(target: .loginSupervisor(loginData: loginData), responseClass: BaseResponse<Login>.self)
     }
-
 }
+

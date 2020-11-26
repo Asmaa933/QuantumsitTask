@@ -23,9 +23,7 @@
 		762AD1EE256F46C2009B62DA /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762AD1ED256F46C2009B62DA /* ApiHandler.swift */; };
 		762AD1F2256F4D02009B62DA /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762AD1F1256F4D02009B62DA /* DialogViewController.swift */; };
 		762AD203256F5122009B62DA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762AD202256F5122009B62DA /* BaseViewController.swift */; };
-		76D9A1B5256F7FF700314CA3 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D9A1B4256F7FF700314CA3 /* MapViewModel.swift */; };
-		76F9D193256F532A00DD25B2 /* DialogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F9D192256F532A00DD25B2 /* DialogViewModel.swift */; };
-		76F9D197256F573800DD25B2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F9D196256F573800DD25B2 /* BaseViewModel.swift */; };
+		76D9A1B5256F7FF700314CA3 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D9A1B4256F7FF700314CA3 /* ViewModel.swift */; };
 		8BDB72005648EACEB5D5D695 /* Pods_QuantumsitTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CE4FF3B5DD472F9BF56BD0 /* Pods_QuantumsitTask.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,9 +47,7 @@
 		762AD1ED256F46C2009B62DA /* ApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandler.swift; sourceTree = "<group>"; };
 		762AD1F1256F4D02009B62DA /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
 		762AD202256F5122009B62DA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		76D9A1B4256F7FF700314CA3 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		76F9D192256F532A00DD25B2 /* DialogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewModel.swift; sourceTree = "<group>"; };
-		76F9D196256F573800DD25B2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		76D9A1B4256F7FF700314CA3 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		79CE4FF3B5DD472F9BF56BD0 /* Pods_QuantumsitTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuantumsitTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39FF6B3A1E99C68FE7FE0C4 /* Pods-QuantumsitTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuantumsitTask.debug.xcconfig"; path = "Target Support Files/Pods-QuantumsitTask/Pods-QuantumsitTask.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,9 +135,7 @@
 		762AD195256E7C56009B62DA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				76F9D195256F572500DD25B2 /* BaseViewModel */,
-				76D9A1B3256F7FD200314CA3 /* MapViewModel */,
-				76F9D19A256F63E400DD25B2 /* DialogViewController */,
+				76D9A1B4256F7FF700314CA3 /* ViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -224,30 +218,6 @@
 				762AD202256F5122009B62DA /* BaseViewController.swift */,
 			);
 			path = BaseView;
-			sourceTree = "<group>";
-		};
-		76D9A1B3256F7FD200314CA3 /* MapViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				76D9A1B4256F7FF700314CA3 /* MapViewModel.swift */,
-			);
-			path = MapViewModel;
-			sourceTree = "<group>";
-		};
-		76F9D195256F572500DD25B2 /* BaseViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				76F9D196256F573800DD25B2 /* BaseViewModel.swift */,
-			);
-			path = BaseViewModel;
-			sourceTree = "<group>";
-		};
-		76F9D19A256F63E400DD25B2 /* DialogViewController */ = {
-			isa = PBXGroup;
-			children = (
-				76F9D192256F532A00DD25B2 /* DialogViewModel.swift */,
-			);
-			path = DialogViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,15 +359,13 @@
 				762AD1CE256F45D6009B62DA /* MapViewController.swift in Sources */,
 				762AD166256E791D009B62DA /* SceneDelegate.swift in Sources */,
 				762AD1AA256F1D35009B62DA /* BaseResponse.swift in Sources */,
-				76D9A1B5256F7FF700314CA3 /* MapViewModel.swift in Sources */,
+				76D9A1B5256F7FF700314CA3 /* ViewModel.swift in Sources */,
 				762AD1EE256F46C2009B62DA /* ApiHandler.swift in Sources */,
 				762AD1F2256F4D02009B62DA /* DialogViewController.swift in Sources */,
 				762AD1A7256F1A56009B62DA /* BaseApi.swift in Sources */,
 				762AD1B0256F368A009B62DA /* AboutUsModel.swift in Sources */,
-				76F9D197256F573800DD25B2 /* BaseViewModel.swift in Sources */,
 				762AD1AD256F1F13009B62DA /* SupervisorModel.swift in Sources */,
 				762AD19C256E84B5009B62DA /* Constants.swift in Sources */,
-				76F9D193256F532A00DD25B2 /* DialogViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

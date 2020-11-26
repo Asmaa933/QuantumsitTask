@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RxCocoa
 import RxSwift
 import GoogleMaps
 
@@ -15,11 +14,6 @@ class MapViewController: BaseViewController {
     @IBOutlet weak var aboutImage: UIImageView!
     @IBOutlet weak var mapView: GMSMapView!
     
-    private lazy var viewModel: MapViewModel = {
-        return MapViewModel()
-    }()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initViewModel()
@@ -27,10 +21,8 @@ class MapViewController: BaseViewController {
         
     }
     
-
-    
-    func initViewModel() {
-        initViewModel(viewModel: viewModel)
+    override func initViewModel() {
+        super.initViewModel()
         viewModel.loginSupervisor()
     }
 }
@@ -41,14 +33,17 @@ fileprivate extension MapViewController {
         setupDrivers()
         aboutImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showPopUp)))
     }
+    
     func setupDrivers() {
-        viewModel.pathDriver.drive(onNext: {[weak self] (coordinates) in
-            self?.drawLineTo(coordinates: coordinates)
-        }).disposed(by: disposeBag)
+        viewModel.pathSubject.observeOn(MainScheduler.instance)
+            .bind { [weak self] (coordinates) in
+                self?.drawLineTo(coordinates: coordinates)
+            }.disposed(by: disposeBag)
         
-        viewModel.pinsDriver.drive(onNext: {[weak self] (pinsLocation) in
-            self?.createPin(coordinates: pinsLocation)
-        }).disposed(by: disposeBag)
+        viewModel.pinsSubject.observeOn(MainScheduler.instance)
+            .bind { [weak self] (pinsLocation) in
+                self?.createPin(coordinates: pinsLocation, color: .cyan)
+            }.disposed(by: disposeBag)
     }
     
     @objc func showPopUp(){
@@ -56,14 +51,13 @@ fileprivate extension MapViewController {
             print("Error in instantiate")
             return
         }
-        popUp.token = viewModel.getToken()
         self.present(popUp, animated: true)
     }
     
-    func createPin(coordinates: [CLLocationCoordinate2D]) {
+    func createPin(coordinates: [CLLocationCoordinate2D],color: UIColor) {
         for coordinate in coordinates{
             let pin = GMSMarker(position: coordinate)
-            pin.icon = GMSMarker.markerImage(with: .cyan)
+            pin.icon = GMSMarker.markerImage(with: color)
             getPlaceName(position: coordinate, completion: { (placeName) in
                 pin.title = placeName
             })
@@ -77,6 +71,7 @@ fileprivate extension MapViewController {
         let camera : GMSCameraPosition = GMSCameraPosition(latitude: coordinates[0].latitude, longitude: coordinates[0].longitude, zoom: 15.0)
         mapView.camera = camera
         let path = GMSMutablePath()
+        createPin(coordinates: [coordinates[0],coordinates[coordinates.count - 1]], color: .red)
         for coordinate in coordinates{
             path.add(coordinate)
         }

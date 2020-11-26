@@ -7,27 +7,29 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 import CDAlertView
 
 class BaseViewController: UIViewController {
     
     let activityIndicator = UIActivityIndicatorView(style: .large)
     let disposeBag = DisposeBag()
+    lazy var viewModel: ViewModel = {
+        return ViewModel()
+    }()
+    
 
-    func initViewModel(viewModel: BaseViewModel) {
+    func initViewModel() {
 
-        viewModel.errorDriver.drive(onNext: {[weak self] (error) in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                self.showAlert(message: viewModel.alertMessage ?? "", type: .error)
-            }
-        }).disposed(by: disposeBag)
+        viewModel.errorSubject.observeOn(MainScheduler.instance)
+            .bind {[weak self] (message) in
+                self?.showAlert(message: message , type: .error)
+            }.disposed(by: disposeBag)
+
         
         viewModel.updateLoadingStatus = { [weak self] () in
             guard let self = self else {return}
             DispatchQueue.main.async {
-                switch viewModel.state {
+                switch self.viewModel.state {
                 case .loading:
                     self.showActivityIndicator()
                 case .empty, .error,.populated:
