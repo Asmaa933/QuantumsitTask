@@ -9,7 +9,6 @@ import Foundation
 
 class DialogViewModel: BaseViewModel {
     
-    private let apiHandler : ApiHandlerProtocol = ApiHandler()
     private var aboutUs: AboutUsModel? {
         didSet {
             self.updateUIClosure?()
@@ -17,9 +16,9 @@ class DialogViewModel: BaseViewModel {
     }
     
     
-    func getAboutUs() {
+    func getAboutUs(token: String) {
         state = .loading
-        apiHandler.getAboutUs {[weak self] (result) in
+        apiHandler.getAboutUs(token: token) {[weak self] (result) in
             guard let self = self else {return}
             switch result {
             

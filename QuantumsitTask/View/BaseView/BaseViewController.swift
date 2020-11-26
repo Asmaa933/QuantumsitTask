@@ -12,6 +12,28 @@ class BaseViewController: UIViewController {
     
     let activityIndicator = UIActivityIndicatorView(style: .large)
 
+    func initViewModel(viewModel: BaseViewModel) {
+        
+        viewModel.showAlertClosure = {[weak self] () in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                self.showAlert(message: viewModel.alertMessage ?? "", type: .error)
+            }
+        }
+        
+        viewModel.updateLoadingStatus = { [weak self] () in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch viewModel.state {
+                case .loading:
+                    self.showActivityIndicator()
+                case .empty, .error,.populated:
+                    self.removeActivityIndicator()
+                }
+            }
+        }
+    }
+    
     func showAlert(message: String,type: CDAlertViewType) {
         let alert = CDAlertView(title: "", message: message, type: type)
         alert.add(action: CDAlertViewAction(title: "Ok"))

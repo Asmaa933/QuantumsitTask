@@ -14,8 +14,13 @@ public enum State {
     case populated
 }
 
-class BaseViewModel {
+protocol BaseProtocol {
     
+}
+
+class BaseViewModel: BaseProtocol {
+    
+    let apiHandler : ApiHandlerProtocol = ApiHandler()
     var updateUIClosure: (()->())?
     var showAlertClosure: (()->())?
     var updateLoadingStatus: (()->())?

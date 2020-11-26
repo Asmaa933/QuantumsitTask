@@ -6,23 +6,24 @@
 //
 
 import Foundation
+import Alamofire
 
 enum ApiNetworking {
-    case aboutUs
+    case aboutUs(token: String)
+    case loginSupervisor(loginData: [String:String])
 }
 
 extension ApiNetworking: TargetType {
     var baseURL: String {
-        switch self {
-        case .aboutUs:
-            return Constants.apiBaseURL
-        }
+        return Constants.apiBaseURL
     }
     
     var path: String {
         switch self {
         case .aboutUs:
             return "aboutus/aboutUs"
+        case .loginSupervisor:
+            return "account/checkCredentials"
         }
     }
     
@@ -30,6 +31,8 @@ extension ApiNetworking: TargetType {
         switch self {
         case .aboutUs:
             return .get
+        case .loginSupervisor:
+            return .post
         }
     }
     
@@ -37,13 +40,18 @@ extension ApiNetworking: TargetType {
         switch self {
         case .aboutUs:
             return .requestPlain
+        case .loginSupervisor(loginData: let loginData):
+            return .requestParameters(parameters: loginData, encoding: JSONEncoding.default)
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .aboutUs:
-            return ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0NywiaXNzIjoiaHR0cDovL2luYWNsaWNrLm9ubGluZS9tdGMvYWNjb3VudC9jaGVja0NyZWRlbnRpYWxzIiwiaWF0IjoxNjA2MzU3OTM5LCJleHAiOjE2MDY0NDQzMzksIm5iZiI6MTYwNjM1NzkzOSwianRpIjoiSzN5bTVVRFNnU29Kc2JycSJ9.5EEG8oP16tEsgpun5YK0G5ViARW0msFdDo4tdZK1FYw"]
+        case .aboutUs(token: let token):
+            return ["Authorization": "Bearer \(token)"]
+        case .loginSupervisor:
+            return ["Content-Type":"application/json","Accept":"application/json"]
+            
         }
     }
 }

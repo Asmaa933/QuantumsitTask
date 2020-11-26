@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Isn-4p-cqd">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -9,37 +9,52 @@
     </dependencies>
     <scenes>
         <!--Map View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="zrv-R9-bvu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="QuantumsitTask" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController id="Isn-4p-cqd" customClass="MapViewController" customModule="QuantumsitTask" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qgG-hv-itZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzB-au-PEi">
-                                <rect key="frame" x="164.5" y="318.5" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ho-jG-gnl" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
-                                    <segue destination="i9l-lC-mD3" kind="show" id="geW-Hs-fg3"/>
+                                    <outlet property="delegate" destination="Isn-4p-cqd" id="Auu-Jx-5gb"/>
                                 </connections>
-                            </button>
+                            </view>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="s19-ja-6VW">
+                                <rect key="frame" x="275" y="567" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="mrs-8W-2WD"/>
+                                    <constraint firstAttribute="width" constant="100" id="rPk-6D-Va5"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemPinkColor"/>
+                        <viewLayoutGuide key="safeArea" id="g2D-Kp-mye"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="IzB-au-PEi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M6Z-M2-5T3"/>
-                            <constraint firstItem="IzB-au-PEi" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qdh-Jf-nP3"/>
+                            <constraint firstItem="2ho-jG-gnl" firstAttribute="bottom" secondItem="qgG-hv-itZ" secondAttribute="bottom" id="5aI-g6-vhZ"/>
+                            <constraint firstItem="2ho-jG-gnl" firstAttribute="trailing" secondItem="g2D-Kp-mye" secondAttribute="trailing" id="B3a-qP-161"/>
+                            <constraint firstItem="g2D-Kp-mye" firstAttribute="trailing" secondItem="s19-ja-6VW" secondAttribute="trailing" id="V54-ZJ-9pe"/>
+                            <constraint firstItem="2ho-jG-gnl" firstAttribute="top" secondItem="qgG-hv-itZ" secondAttribute="top" id="aa6-HB-eIA"/>
+                            <constraint firstItem="2ho-jG-gnl" firstAttribute="leading" secondItem="g2D-Kp-mye" secondAttribute="leading" id="d2O-vK-0LI"/>
+                            <constraint firstItem="g2D-Kp-mye" firstAttribute="bottom" secondItem="s19-ja-6VW" secondAttribute="bottom" id="sCh-9R-eE3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="aboutImage" destination="s19-ja-6VW" id="jb3-DV-3eI"/>
+                        <outlet property="mapView" destination="2ho-jG-gnl" id="24e-jb-ehx"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AS5-qw-PMt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="79"/>
+            <point key="canvasLocation" x="16.800000000000001" y="78.710644677661179"/>
         </scene>
         <!--Dialog View Controller-->
         <scene sceneID="3wH-bU-PbN">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="i9l-lC-mD3" customClass="DialogViewController" customModule="QuantumsitTask" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DialogViewController" modalPresentationStyle="overCurrentContext" id="i9l-lC-mD3" customClass="DialogViewController" customModule="QuantumsitTask" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uS5-xC-YGK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,7 +64,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W63-UG-Dee">
-                                <rect key="frame" x="28" y="167" width="319" height="333.5"/>
+                                <rect key="frame" x="28" y="133.5" width="319" height="400"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVt-PY-S7b">
                                         <rect key="frame" x="285" y="16" width="18" height="22"/>
@@ -59,7 +74,7 @@
                                         </connections>
                                     </button>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTU-ep-eTz">
-                                        <rect key="frame" x="8" y="43" width="303" height="282.5"/>
+                                        <rect key="frame" x="8" y="43" width="303" height="349"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -87,7 +102,7 @@
                             <constraint firstItem="NU8-ZW-8ru" firstAttribute="trailing" secondItem="sh9-at-DgB" secondAttribute="trailing" id="aoS-3M-byY"/>
                             <constraint firstItem="NU8-ZW-8ru" firstAttribute="leading" secondItem="sh9-at-DgB" secondAttribute="leading" id="qPc-eG-Lm0"/>
                             <constraint firstItem="NU8-ZW-8ru" firstAttribute="bottom" secondItem="sh9-at-DgB" secondAttribute="bottom" id="sGU-nI-0pM"/>
-                            <constraint firstItem="W63-UG-Dee" firstAttribute="height" secondItem="NU8-ZW-8ru" secondAttribute="height" multiplier="0.5" id="upN-zz-bqa"/>
+                            <constraint firstItem="W63-UG-Dee" firstAttribute="height" secondItem="NU8-ZW-8ru" secondAttribute="height" multiplier="0.6" id="upN-zz-bqa"/>
                             <constraint firstItem="W63-UG-Dee" firstAttribute="centerY" secondItem="uS5-xC-YGK" secondAttribute="centerY" id="xWQ-0J-LT8"/>
                         </constraints>
                     </view>
@@ -104,9 +119,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="about" width="100" height="100"/>
         <image name="close" width="18" height="18"/>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

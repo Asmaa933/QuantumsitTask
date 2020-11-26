@@ -8,8 +8,9 @@
 import Foundation
 
 enum Constants {
-    static let googleKey = "AIzaSyBa_gbnaVSTZ0LWqj3tl0-pLtMZErbUr8E"
+    static let googleKey = "AIzaSyARI1bqWYoP_uMTHHe4OWfQ6apoJyE2_pI"
     static let apiBaseURL = "http://inaclick.online/mtc/"
+    static let token = "token"
 }
 
 enum ErrorMessages {

@@ -15,6 +15,8 @@ class DialogViewController: BaseViewController {
     @IBOutlet private weak var bgView: UIView!
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var mainView: UIView!
+    
+    var token = ""
     private lazy var viewModel: DialogViewModel = {
         return DialogViewModel()
     }()
@@ -41,6 +43,9 @@ fileprivate extension DialogViewController {
     }
     
     func initViewModel() {
+        
+        initViewModel(viewModel: viewModel)
+        
         viewModel.updateUIClosure = { [weak self] () in
             guard let self = self else {return}
             DispatchQueue.main.async {
@@ -49,25 +54,7 @@ fileprivate extension DialogViewController {
             }
         }
         
-        viewModel.showAlertClosure = {[weak self] () in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                self.showAlert(message: self.viewModel.alertMessage ?? "", type: .error)
-            }
-        }
-        
-        viewModel.updateLoadingStatus = { [weak self] () in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                switch self.viewModel.state {
-                case .loading:
-                    self.showActivityIndicator()
-                case .empty, .error,.populated:
-                    self.removeActivityIndicator()
-                }
-            }
-        }
-        viewModel.getAboutUs()
+        viewModel.getAboutUs(token: token)
     }
 
     
