@@ -36,9 +36,9 @@
                         <constraints>
                             <constraint firstItem="2ho-jG-gnl" firstAttribute="bottom" secondItem="qgG-hv-itZ" secondAttribute="bottom" id="5aI-g6-vhZ"/>
                             <constraint firstItem="2ho-jG-gnl" firstAttribute="trailing" secondItem="g2D-Kp-mye" secondAttribute="trailing" id="B3a-qP-161"/>
-                            <constraint firstItem="g2D-Kp-mye" firstAttribute="trailing" secondItem="s19-ja-6VW" secondAttribute="trailing" id="V54-ZJ-9pe"/>
                             <constraint firstItem="2ho-jG-gnl" firstAttribute="top" secondItem="qgG-hv-itZ" secondAttribute="top" id="aa6-HB-eIA"/>
                             <constraint firstItem="2ho-jG-gnl" firstAttribute="leading" secondItem="g2D-Kp-mye" secondAttribute="leading" id="d2O-vK-0LI"/>
+                            <constraint firstItem="g2D-Kp-mye" firstAttribute="trailing" secondItem="s19-ja-6VW" secondAttribute="trailing" id="jG3-iD-RQ9"/>
                             <constraint firstItem="g2D-Kp-mye" firstAttribute="bottom" secondItem="s19-ja-6VW" secondAttribute="bottom" id="sCh-9R-eE3"/>
                         </constraints>
                     </view>

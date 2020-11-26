@@ -8,8 +8,9 @@ target 'QuantumsitTask' do
   # Pods for QuantumsitTask
   pod 'Alamofire'
   pod 'GoogleMaps', '4.0.0'
-  pod 'GooglePlaces', '4.0.0'
   pod "CDAlertView"
+  pod 'RxSwift'
+  pod 'RxCocoa'
 
 
 end

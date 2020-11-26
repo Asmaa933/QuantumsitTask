@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 public enum State {
     case loading
@@ -15,12 +17,22 @@ public enum State {
 }
 
 protocol BaseProtocol {
-    
+    var  errorDriver: Driver<String> {set get}
 }
 
 class BaseViewModel: BaseProtocol {
     
+    var errorDriver: Driver<String>
+    var errorSubject: PublishSubject<String> = PublishSubject()
     let apiHandler : ApiHandlerProtocol = ApiHandler()
+    
+    init() {
+        errorDriver = errorSubject.asDriver(onErrorJustReturn: "")
+    }
+    
+    
+    
+
     var updateUIClosure: (()->())?
     var showAlertClosure: (()->())?
     var updateLoadingStatus: (()->())?

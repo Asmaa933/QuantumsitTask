@@ -46,7 +46,7 @@ struct Route: Codable {
 }
 
 struct Location: Codable {
-    let lat, lng: Double
+    let lat, lng: Double?
 }
 
 

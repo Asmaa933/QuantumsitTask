@@ -6,26 +6,32 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 import GoogleMaps
 
-//{
-//  "name":"bola_d",
-//  "password":"1234",
-//  "deviceToken": ""
-//}
 
-class MapViewModel: BaseViewModel{
+protocol MapViewModelProtocol {
+    var  pathDriver: Driver<[CLLocationCoordinate2D]> {set get}
+    var  pinsDriver: Driver<[CLLocationCoordinate2D]> {set get}
+    func loginSupervisor()
+}
+
+class MapViewModel: BaseViewModel, MapViewModelProtocol{
     
-    private var supervisorData: Login? {
-        didSet{
-            self.updateUIClosure?()
-        }
-    }
+    var pathDriver: Driver<[CLLocationCoordinate2D]>
+    var pinsDriver: Driver<[CLLocationCoordinate2D]>
     
-    var routes: [CLLocationCoordinate2D]? {
-        didSet{
-            
-        }
+    
+    private var pathSubject: PublishSubject<[CLLocationCoordinate2D]> = PublishSubject()
+    private var pinsSubject: PublishSubject<[CLLocationCoordinate2D]> = PublishSubject()
+    private var supervisorData: Login?
+    
+    
+    override init() {
+        pathDriver = pathSubject.asDriver(onErrorJustReturn: [])
+        pinsDriver = pinsSubject.asDriver(onErrorJustReturn: [])
+        super.init()
     }
     
     func loginSupervisor() {
@@ -35,22 +41,32 @@ class MapViewModel: BaseViewModel{
             guard let self = self else {return}
             switch result {
             case .success(let data):
-                if data?.status ?? false {
+                if data?.status ?? false && data?.innerData != nil {
                     self.supervisorData = data?.innerData
+                    self.retrieveAllPaths()
+                    self.retrieveAllStopPoints()
                     self.state = .populated
                 }else {
-                    self.alertMessage = data?.message
+                    self.errorSubject.onNext(data?.message ?? "")
                     self.state = .error
                 }
                 
             case .failure(let error):
-                self.alertMessage = error.userInfo[NSLocalizedDescriptionKey] as? String
-                self.state = .error
+                self.errorSubject.onNext(error.userInfo[NSLocalizedDescriptionKey] as? String ?? "")
             }
         }
     }
     
-    func makeRoutes() {
+    func retrieveAllPaths() {
+        guard let routePath = supervisorData?.user?.bus?.route?.routePath else {return}
+        let coordinates = routePath.map({CLLocationCoordinate2D(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0)})
+        self.pathSubject.onNext(coordinates)
+    }
+    
+    func retrieveAllStopPoints() {
+        guard let stopPoints = supervisorData?.user?.bus?.route?.stopPoints else {return}
+        let pins = stopPoints.map({CLLocationCoordinate2D(latitude: $0.lat ?? 0, longitude: $0.lng ?? 0)})
+        self.pinsSubject.onNext(pins)
     }
     
     func getToken() -> String {
