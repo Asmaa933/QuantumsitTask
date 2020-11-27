@@ -19,9 +19,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ho-jG-gnl" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Isn-4p-cqd" id="Auu-Jx-5gb"/>
-                                </connections>
                             </view>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="s19-ja-6VW">
                                 <rect key="frame" x="275" y="567" width="100" height="100"/>
@@ -43,8 +40,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="aboutImage" destination="s19-ja-6VW" id="jb3-DV-3eI"/>
-                        <outlet property="mapView" destination="2ho-jG-gnl" id="24e-jb-ehx"/>
+                        <outlet property="aboutImage" destination="s19-ja-6VW" id="U76-47-AvZ"/>
+                        <outlet property="mapView" destination="2ho-jG-gnl" id="lbJ-ut-BCj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AS5-qw-PMt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -8,6 +8,8 @@
 import Foundation
 import Alamofire
 
+// MARK: - ApiNetworking
+
 enum ApiNetworking {
     case aboutUs(token: String)
     case loginSupervisor(loginData: [String:String])
@@ -51,7 +53,6 @@ extension ApiNetworking: TargetType {
             return ["Authorization": "Bearer \(token)"]
         case .loginSupervisor:
             return ["Content-Type":"application/json","Accept":"application/json"]
-            
         }
     }
 }

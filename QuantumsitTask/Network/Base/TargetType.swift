@@ -8,15 +8,21 @@
 import Foundation
 import Alamofire
 
+// MARK:- HTTPMethod
+
 enum HTTPMethod: String{
     case get = "GET"
     case post = "POST"
 }
 
+// MARK:- Task
+
 enum Task {
     case requestPlain
     case requestParameters(parameters: [String: Any],encoding: ParameterEncoding)
 }
+
+// MARK:- TargetType
 
 protocol TargetType {
     var baseURL: String {get}

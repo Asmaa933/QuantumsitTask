@@ -8,10 +8,14 @@
 import Foundation
 import RxSwift
 
+// MARK:- ApiHandlerProtocol
+
 protocol ApiHandlerProtocol {
     func getAboutUs(token: String) -> Observable<BaseResponse<[AboutUsModel]>>
     func loginSupervisor(loginData: [String:String]) -> Observable<BaseResponse<Login>>
 }
+
+// MARK:- ApiHandler
 
 class ApiHandler: BaseAPI<ApiNetworking>, ApiHandlerProtocol {
     

@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK : - loginModel
 //(user->bus->route->routePath) and (user->bus->route->stop_points)
 struct Login: Codable {
     var token: String = ""

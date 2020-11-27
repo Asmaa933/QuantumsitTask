@@ -7,42 +7,25 @@
 
 import UIKit
 import RxSwift
-import CDAlertView
+
+//MARK: - BaseViewController
 
 class BaseViewController: UIViewController {
     
-    let activityIndicator = UIActivityIndicatorView(style: .large)
+    //MARK: - Variables
+
+   private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private var imageView: UIImageView!
     let disposeBag = DisposeBag()
     lazy var viewModel: ViewModel = {
         return ViewModel()
     }()
     
+    //MARK: - View Lifecycle
 
-    func initViewModel() {
-
-        viewModel.errorSubject.observeOn(MainScheduler.instance)
-            .bind {[weak self] (message) in
-                self?.showAlert(message: message , type: .error)
-            }.disposed(by: disposeBag)
-
-        
-        viewModel.updateLoadingStatus = { [weak self] () in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                switch self.viewModel.state {
-                case .loading:
-                    self.showActivityIndicator()
-                case .empty, .error,.populated:
-                    self.removeActivityIndicator()
-                }
-            }
-        }
-    }
-    
-    func showAlert(message: String,type: CDAlertViewType) {
-        let alert = CDAlertView(title: "", message: message, type: type)
-        alert.add(action: CDAlertViewAction(title: "Ok"))
-        alert.show()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupErrorsObserver()
     }
     
     func showActivityIndicator(){
@@ -51,14 +34,68 @@ class BaseViewController: UIViewController {
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
     }
-
-    func removeActivityIndicator(){
+    
+    func removeActivityIndicator() {
         activityIndicator.stopAnimating()
         activityIndicator.removeFromSuperview()
-        
     }
     
-    @objc func dismissView(){
+    @objc func dismissView() {
         self.dismiss(animated: true)
     }
+    
+    func removeImage() {
+        imageView.removeFromSuperview()
+        imageView = nil
+    }
+}
+
+// MARK: - Helper Methods
+
+fileprivate extension BaseViewController {
+    
+    func setupErrorsObserver() {
+        viewModel.errorSubject.observeOn(MainScheduler.instance)
+            .bind {[weak self] (message) in
+                guard let self = self else {return}
+                if message == ErrorMessages.connectionError {
+                    self.handleNoInternet()
+                }else{
+                    self.showAlert(message: message)
+                }
+            }.disposed(by: disposeBag)
+        
+        viewModel.updateLoadingStatus = { [weak self] () in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch self.viewModel.state {
+                case .loading:
+                    self.view.isUserInteractionEnabled = false
+                    self.showActivityIndicator()
+                case .empty, .error,.populated:
+                    self.view.isUserInteractionEnabled = true
+                    self.removeActivityIndicator()
+                }
+            }
+        }
+    }
+    
+    func handleNoInternet() {
+        imageView = UIImageView(frame: CGRect(x: 50, y: 100, width: 300, height: 300))
+        imageView.center = view.center
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "internet", in: Bundle(for: type(of: self)), compatibleWith: nil)
+        view.addSubview(imageView)
+    }
+    
+   
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(alert, animated: true)
+    }
+    
+   
 }

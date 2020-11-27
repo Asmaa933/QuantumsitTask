@@ -9,32 +9,42 @@ import UIKit
 import RxSwift
 import GoogleMaps
 
+// MARK: - MapViewController
 class MapViewController: BaseViewController {
     
-    @IBOutlet weak var aboutImage: UIImageView!
-    @IBOutlet weak var mapView: GMSMapView!
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var aboutImage: UIImageView!
+    @IBOutlet private weak var mapView: GMSMapView!
+    
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initViewModel()
         setupView()
-        
+        initViewModel()
     }
     
-    override func initViewModel() {
-        super.initViewModel()
-        viewModel.loginSupervisor()
-    }
 }
+
+// MARK: - Helper Methods
 
 fileprivate extension MapViewController {
     
+    // Initialize ViewModel
+    func initViewModel() {
+        setupObservers()
+        viewModel.loginSupervisor()
+    }
+    
     func setupView() {
-        setupDrivers()
+        retryWhileDownSwipe()
+        mapView.isHidden = true
+        aboutImage.isHidden = true
         aboutImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showPopUp)))
     }
     
-    func setupDrivers() {
+    func setupObservers() {
         viewModel.pathSubject.observeOn(MainScheduler.instance)
             .bind { [weak self] (coordinates) in
                 self?.drawLineTo(coordinates: coordinates)
@@ -69,6 +79,8 @@ fileprivate extension MapViewController {
     
     func drawLineTo(coordinates: [CLLocationCoordinate2D]) {
         let camera : GMSCameraPosition = GMSCameraPosition(latitude: coordinates[0].latitude, longitude: coordinates[0].longitude, zoom: 15.0)
+        mapView.isHidden = false
+        aboutImage.isHidden = false
         mapView.camera = camera
         let path = GMSMutablePath()
         createPin(coordinates: [coordinates[0],coordinates[coordinates.count - 1]], color: .red)
@@ -80,6 +92,18 @@ fileprivate extension MapViewController {
         polyline.geodesic = true
         polyline.strokeColor = .red
         polyline.map = mapView
+    }
+    
+    func retryWhileDownSwipe(){
+        showActivityIndicator()
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.retry))
+        downSwipe.direction = UISwipeGestureRecognizer.Direction.down
+        self.view.addGestureRecognizer(downSwipe)
+    }
+    
+    @objc func retry() {
+        removeImage()
+        viewModel.loginSupervisor()
     }
     
     func getPlaceName(position:CLLocationCoordinate2D, completion: @escaping (String) -> Void ){

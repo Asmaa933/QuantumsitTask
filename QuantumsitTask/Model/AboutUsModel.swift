@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK : - AboutUsModel
+
 struct AboutUsModel: Codable {
     let id: Int?
     let content: String?

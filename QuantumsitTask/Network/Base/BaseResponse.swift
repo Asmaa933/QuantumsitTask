@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK:- BaseResponse
 struct BaseResponse<T: Codable>: Codable {
     var message: String?
     var status: Bool?
